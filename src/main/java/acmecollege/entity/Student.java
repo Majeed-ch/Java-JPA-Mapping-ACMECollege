@@ -12,6 +12,13 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.Basic;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Column;
+
 
 
 /**
@@ -27,19 +34,26 @@ import java.util.Set;
 @SuppressWarnings("unused")
 //TODO ST01 - Add the missing annotations.
 //TODO ST02 - Do we need a mapped super class? If so, which one?
+@Entity(name = "Student")
+@Table(name = "student")
+@AttributeOverride(name = "id", column = @Column(name="id"))
 public class Student extends PojoBase implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	// TODO ST03 - Add annotation
+	@Basic
 	private String firstName;
 
 	// TODO ST04 - Add annotation
+	@Basic
 	private String lastName;
 
 	// TODO ST05 - Add annotations for 1:M relation.  Changes should not cascade.
+	@OneToMany
 	private Set<MembershipCard> membershipCards = new HashSet<>();
 
 	// TODO ST06 - Add annotations for 1:M relation.  Changes should not cascade.
+	@OneToMany
 	private Set<CourseRegistration> courseRegistrations = new HashSet<>();
 
 	public String getFirstName() {
