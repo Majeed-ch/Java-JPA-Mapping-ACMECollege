@@ -12,35 +12,61 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 @SuppressWarnings("unused")
 
 /**
  * The persistent class for the course database table.
  */
-//TODO CO01 - Add the missing annotations.
-//TODO CO02 - Do we need a mapped super class?  If so, which one?
+//TODO xCO01 - Add the missing annotations.
+//TODO xCO02 - Do we need a mapped super class?  If so, which one?
+@Entity
+@Table(name = "course")
+@AttributeOverride(name = "id", column = @Column(name = "course_id"))
+@NamedQuery(name = "Course.findAll", query = "SELECT c FROM Course c")
 public class Course extends PojoBase implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	// TODO CO03 - Add missing annotations.
+	// TODO xCO03 - Add missing annotations.
+	@Basic(optional = false)
+	@Column(name = "course_code", nullable = false, length = 7)
 	private String courseCode;
 
-	// TODO CO04 - Add missing annotations.
+	// TODO xCO04 - Add missing annotations.
+	@Basic(optional = false)
+	@Column(name = "course_title", nullable = false, length = 100)
 	private String courseTitle;
 
-	// TODO CO05 - Add missing annotations.
+	// TODO xCO05 - Add missing annotations.
+	@Basic(optional = false)
+	@Column(name = "year", nullable = false)
 	private int year;
 
-	// TODO CO06 - Add missing annotations.
+	// TODO xCO06 - Add missing annotations.
+	@Basic(optional = false)
+	@Column(name = "semester", nullable = false, length = 6)
 	private String semester;
 
-	// TODO CO07 - Add missing annotations.
+	// TODO xCO07 - Add missing annotations.
+	@Basic(optional = false)
+	@Column(name = "credit_units", nullable = false)
 	private int creditUnits;
 
-	// TODO CO08 - Add missing annotations.
+	// TODO xCO08 - Add missing annotations.
+	@Basic(optional = false)
+	@Column(name = "online", nullable = false, length = 1)
 	private byte online;
 
-	// TODO CO09 - Add annotations for 1:M relation.  Changes to this class should not cascade.
+	// TODO xCO09 - Add annotations for 1:M relation.  Changes to this class should not cascade.
+	@OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
 	private Set<CourseRegistration> courseRegistrations = new HashSet<>();
 
 	public Course() {
