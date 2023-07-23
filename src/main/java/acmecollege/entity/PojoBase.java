@@ -45,11 +45,11 @@ public abstract class PojoBase implements Serializable {
 	protected int version;
 
 	// TODO xPB06 - Add missing annotations (hint, is this column on DB?).
-	@Column
+	@Column(name = "crated")
 	protected LocalDateTime created;
 
 	// TODO xPB07 - Add missing annotations (hint, is this column on DB?).
-	@Column
+	@Column(name = "updated")
 	protected LocalDateTime updated;
 
 	public int getId() {

@@ -14,6 +14,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.AttributeOverride;
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -21,8 +22,11 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.resource.beans.internal.FallbackBeanInstanceProducer;
 
 /**
  * The persistent class for the student_club database table.
@@ -35,11 +39,13 @@ import javax.persistence.Table;
 @AttributeOverride(name = "id", column = @Column(name = "club_id"))
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "academic", length = 1)
+@NamedQuery(name = "StudentClub.findAll", query = "SELECT sc FROM StudentClub sc")
 public abstract class StudentClub extends PojoBase implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	// TODO xSC04 - Add the missing annotations.
-	@Column
+	@Basic(optional = false)
+	@Column(name = "name")
 	private String name;
 
 	// TODO xSC05 - Add the 1:M annotation.  This list should be effected by changes to this object (cascade).

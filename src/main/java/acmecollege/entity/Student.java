@@ -15,6 +15,7 @@ import java.util.Set;
 import javax.persistence.AttributeOverride;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -38,24 +39,26 @@ import javax.persistence.Column;
 @Entity
 @Table(name = "student")
 @AttributeOverride(name = "id", column = @Column(name="id"))
-//@NamedQuery(name = "Student.findAll", query = "SELECT sd FROM Student sd")
+@NamedQuery(name = "Student.findAll", query = "SELECT s FROM Student s")
 public class Student extends PojoBase implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	// TODO xST03 - Add annotation
-	@Column(name = "first_name")
+	@Basic(optional = false)
+	@Column(name = "first_name", nullable = false, length = 50)
 	private String firstName;
 
 	// TODO xST04 - Add annotation
-	@Column(name = "last_name")
+	@Basic(optional = false)
+	@Column(name = "last_name", nullable = false, length = 50)
 	private String lastName;
 
 	// TODO xST05 - Add annotations for 1:M relation.  Changes should not cascade.
-	@OneToMany(mappedBy = "owner")
+	@OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
 	private Set<MembershipCard> membershipCards = new HashSet<>();
 
 	// TODO xST06 - Add annotations for 1:M relation.  Changes should not cascade.
-	@OneToMany(mappedBy = "student")
+	@OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
 	private Set<CourseRegistration> courseRegistrations = new HashSet<>();
 
 	public String getFirstName() {

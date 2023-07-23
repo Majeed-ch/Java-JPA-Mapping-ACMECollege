@@ -19,6 +19,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -32,16 +33,17 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "club_membership")
 @AttributeOverride(name = "id", column = @Column(name = "membership_id"))
+@NamedQuery(name = "ClubMembership.findAll", query = "SELECT cm FROM ClubMembership cm")
 public class ClubMembership extends PojoBase implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	// TODO xCM03 - Add annotations for M:1.  Changes to this class should cascade to StudentClub.
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "club_id")
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "club_id", referencedColumnName = "id", nullable = false)
 	private StudentClub club;
 
 	// TODO xCM04 - Add annotations for 1:1.  Changes to this class should not cascade to MembershipCard.
-	@OneToOne(mappedBy = "clubMembership")
+	@OneToOne(mappedBy = "clubMembership", fetch = FetchType.LAZY)
 	private MembershipCard card;
 
 	@Embedded
