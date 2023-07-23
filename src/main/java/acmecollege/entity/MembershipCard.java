@@ -32,7 +32,8 @@ public class MembershipCard extends PojoBase implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	// TODO xMC03 - Add annotations for 1:1 mapping.  Changes here should cascade.
-	@OneToOne(mappedBy = "clubMemberships")
+	@OneToOne
+	@JoinColumn(name = "membership_id")
 	private ClubMembership clubMembership;
 
 	// TODO xMC04 - Add annotations for M:1 mapping.  Changes here should not cascade.
