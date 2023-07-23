@@ -52,7 +52,7 @@ public class CourseRegistration extends PojoBaseCompositeKey<CourseRegistrationP
 	@JoinColumn(name = "course_id", referencedColumnName = "id", nullable = false)
 	private Course course;
 
-	//TODO CR02 - Add missing annotations.  Changes to this class should cascade.
+	//TODO xCR02 - Add missing annotations.  Changes to this class should cascade.
 	@ManyToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(name = "professor_id", referencedColumnName = "id", nullable = false)
 	private Professor professor;
