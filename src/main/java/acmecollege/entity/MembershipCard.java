@@ -10,23 +10,38 @@ package acmecollege.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
 @SuppressWarnings("unused")
 
 /**
  * The persistent class for the membership_card database table.
  */
-//TODO MC01 - Add the missing annotations.
-//TODO MC02 - Do we need a mapped super class?  If so, which one?
+//TODO xMC01 - Add the missing annotations.
+//TODO xMC02 - Do we need a mapped super class?  If so, which one?
+@Entity
+@Table(name = "membership_card")
+@AttributeOverride(name = "id", column = @Column(name = "card_id"))
 public class MembershipCard extends PojoBase implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	// TODO MC03 - Add annotations for 1:1 mapping.  Changes here should cascade.
+	// TODO xMC03 - Add annotations for 1:1 mapping.  Changes here should cascade.
+	@OneToOne(mappedBy = "clubMemberships")
 	private ClubMembership clubMembership;
 
-	// TODO MC04 - Add annotations for M:1 mapping.  Changes here should not cascade.
+	// TODO xMC04 - Add annotations for M:1 mapping.  Changes here should not cascade.
+	@ManyToOne
+	@JoinColumn(name = "student_id")
 	private Student owner;
 
-	// TODO MC05 - Add annotations.
+	// TODO xMC05 - Add annotations.
+	@Column
 	private byte signed;
 
 	public MembershipCard() {
