@@ -45,7 +45,7 @@ public abstract class PojoBase implements Serializable {
 	protected int version;
 
 	// TODO xPB06 - Add missing annotations (hint, is this column on DB?).
-	@Column(name = "crated")
+	@Column(name = "created")
 	protected LocalDateTime created;
 
 	// TODO xPB07 - Add missing annotations (hint, is this column on DB?).

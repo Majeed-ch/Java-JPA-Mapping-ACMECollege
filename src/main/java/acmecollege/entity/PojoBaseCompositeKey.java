@@ -41,7 +41,7 @@ public abstract class PojoBaseCompositeKey<ID extends Serializable> implements S
 	protected int version;
 
 	// TODO xPC05 - Add missing annotations (hint, is this column on DB?).
-	@Column(name = "crated")
+	@Column(name = "created")
 	protected LocalDateTime created;
 
 	// TODO xPC06 - Add missing annotations (hint, is this column on DB?).

@@ -11,6 +11,8 @@ package acmecollege.entity;
 import java.io.Serializable;
 import java.util.Objects;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.AttributeOverride;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -38,8 +40,8 @@ public class ClubMembership extends PojoBase implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	// TODO xCM03 - Add annotations for M:1.  Changes to this class should cascade to StudentClub.
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "club_id", referencedColumnName = "id", nullable = false)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "club_id", referencedColumnName = "club_id")
 	private StudentClub club;
 
 	// TODO xCM04 - Add annotations for 1:1.  Changes to this class should not cascade to MembershipCard.

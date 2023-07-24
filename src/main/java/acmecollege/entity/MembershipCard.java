@@ -39,7 +39,7 @@ public class MembershipCard extends PojoBase implements Serializable {
 
 	// TODO xMC03 - Add annotations for 1:1 mapping.  Changes here should cascade.
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "membership_id", referencedColumnName = "id", nullable = false)
+	@JoinColumn(name = "membership_id", referencedColumnName = "membership_id", nullable = false)
 	private ClubMembership clubMembership;
 
 	// TODO xMC04 - Add annotations for M:1 mapping.  Changes here should not cascade.

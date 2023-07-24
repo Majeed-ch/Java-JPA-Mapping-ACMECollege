@@ -18,6 +18,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
@@ -38,7 +39,7 @@ import org.hibernate.resource.beans.internal.FallbackBeanInstanceProducer;
 @Table(name = "student_club")
 @AttributeOverride(name = "id", column = @Column(name = "club_id"))
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "academic", length = 1)
+@DiscriminatorColumn(name = "academic", discriminatorType = DiscriminatorType.INTEGER, length = 1)
 @NamedQuery(name = "StudentClub.findAll", query = "SELECT sc FROM StudentClub sc")
 public abstract class StudentClub extends PojoBase implements Serializable {
 	private static final long serialVersionUID = 1L;
