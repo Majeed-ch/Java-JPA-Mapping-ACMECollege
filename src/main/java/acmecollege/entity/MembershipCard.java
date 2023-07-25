@@ -38,17 +38,17 @@ public class MembershipCard extends PojoBase implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	// TODO xMC03 - Add annotations for 1:1 mapping.  Changes here should cascade.
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "membership_id", referencedColumnName = "membership_id", nullable = false)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "membership_id", referencedColumnName = "membership_id")
 	private ClubMembership clubMembership;
 
 	// TODO xMC04 - Add annotations for M:1 mapping.  Changes here should not cascade.
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "student_id", referencedColumnName = "id", nullable = false)
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+	@JoinColumn(name = "student_id", referencedColumnName = "id")
 	private Student owner;
 
 	// TODO xMC05 - Add annotations.
-	@Column(name = "signed", nullable = false, length = 1)
+	@Column(name = "signed", length = 1)
 	private byte signed;
 
 	public MembershipCard() {
