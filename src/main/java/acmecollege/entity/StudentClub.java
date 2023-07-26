@@ -13,19 +13,44 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.hibernate.resource.beans.internal.FallbackBeanInstanceProducer;
+
 /**
  * The persistent class for the student_club database table.
  */
-//TODO SC01 - Add the missing annotations.
-//TODO SC02 - StudentClub has subclasses AcademicStudentClub and NonAcademicStudentClub.  Look at week 9 slides for InheritanceType.
-//TODO SC03 - Do we need a mapped super class?  If so, which one?
+//TODO xSC01 - Add the missing annotations.
+//TODO xSC02 - StudentClub has subclasses AcademicStudentClub and NonAcademicStudentClub.  Look at week 9 slides for InheritanceType.
+//TODO xSC03 - Do we need a mapped super class?  If so, which one?
+@Entity
+@Table(name = "student_club")
+@AttributeOverride(name = "id", column = @Column(name = "club_id"))
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "academic", discriminatorType = DiscriminatorType.INTEGER, length = 1)
+@NamedQuery(name = "StudentClub.findAll", query = "SELECT sc FROM StudentClub sc")
 public abstract class StudentClub extends PojoBase implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	// TODO SC04 - Add the missing annotations.
+	// TODO xSC04 - Add the missing annotations.
+	@Basic(optional = false)
+	@Column(name = "name")
 	private String name;
 
-	// TODO SC05 - Add the 1:M annotation.  This list should be effected by changes to this object (cascade).
+	// TODO xSC05 - Add the 1:M annotation.  This list should be effected by changes to this object (cascade).
+	@OneToMany(mappedBy = "club", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<ClubMembership> clubMemberships = new HashSet<>();
 
 	public StudentClub() {

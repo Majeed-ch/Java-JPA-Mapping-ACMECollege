@@ -12,6 +12,15 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.Basic;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Column;
+
 
 
 /**
@@ -25,21 +34,31 @@ import java.util.Set;
  * 
  */
 @SuppressWarnings("unused")
-//TODO ST01 - Add the missing annotations.
-//TODO ST02 - Do we need a mapped super class? If so, which one?
+//TODO xST01 - Add the missing annotations.
+//TODO xST02 - Do we need a mapped super class? If so, which one?
+@Entity
+@Table(name = "student")
+@AttributeOverride(name = "id", column = @Column(name="id"))
+@NamedQuery(name = "Student.findAll", query = "SELECT s FROM Student s")
 public class Student extends PojoBase implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	// TODO ST03 - Add annotation
+	// TODO xST03 - Add annotation
+	@Basic(optional = false)
+	@Column(name = "first_name", nullable = false, length = 50)
 	private String firstName;
 
-	// TODO ST04 - Add annotation
+	// TODO xST04 - Add annotation
+	@Basic(optional = false)
+	@Column(name = "last_name", nullable = false, length = 50)
 	private String lastName;
 
-	// TODO ST05 - Add annotations for 1:M relation.  Changes should not cascade.
+	// TODO xST05 - Add annotations for 1:M relation.  Changes should not cascade.
+	@OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
 	private Set<MembershipCard> membershipCards = new HashSet<>();
 
-	// TODO ST06 - Add annotations for 1:M relation.  Changes should not cascade.
+	// TODO xST06 - Add annotations for 1:M relation.  Changes should not cascade.
+	@OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
 	private Set<CourseRegistration> courseRegistrations = new HashSet<>();
 
 	public String getFirstName() {

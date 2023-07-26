@@ -11,25 +11,41 @@ package acmecollege.entity;
 import java.io.Serializable;
 import java.util.Objects;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.AttributeOverride;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Embedded;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @SuppressWarnings("unused")
 
 /**
  * The persistent class for the club_membership database table.
  */
-//TODO CM01 - Add the missing annotations.
-//TODO CM02 - Do we need a mapped super class?  If so, which one?
+//TODO xCM01 - Add the missing annotations.
+//TODO xCM02 - Do we need a mapped super class?  If so, which one?
+@Entity
+@Table(name = "club_membership")
+@AttributeOverride(name = "id", column = @Column(name = "membership_id"))
+@NamedQuery(name = "ClubMembership.findAll", query = "SELECT cm FROM ClubMembership cm")
 public class ClubMembership extends PojoBase implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	// TODO CM03 - Add annotations for M:1.  Changes to this class should cascade to StudentClub.
+	// TODO xCM03 - Add annotations for M:1.  Changes to this class should cascade to StudentClub.
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "club_id", referencedColumnName = "club_id")
 	private StudentClub club;
 
-	// TODO CM04 - Add annotations for 1:1.  Changes to this class should not cascade to MembershipCard.
+	// TODO xCM04 - Add annotations for 1:1.  Changes to this class should not cascade to MembershipCard.
+	@OneToOne(mappedBy = "clubMembership", fetch = FetchType.LAZY)
 	private MembershipCard card;
 
 	@Embedded

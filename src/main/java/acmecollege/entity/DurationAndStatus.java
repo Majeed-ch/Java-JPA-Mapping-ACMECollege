@@ -12,17 +12,31 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-//TODO DS01 - This class is not an entity however it can be embedded in other entities.  Add missing annotation.
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+
+//TODO xDS01 - This class is not an entity however it can be embedded in other entities.  Add missing annotation.
+@Access(AccessType.FIELD)
+@Embeddable
 public class DurationAndStatus implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	// TODO DS02 - Add annotations
+	// TODO xDS02 - Add annotations
+	@Basic(optional = false)
+	@Column(name = "start_date", nullable = false)
 	private LocalDateTime startDate;
 	
-	// TODO DS03 - Add annotations
+	// TODO xDS03 - Add annotations
+	@Basic(optional = false)
+	@Column(name = "end_date", nullable = false)
 	private LocalDateTime endDate;
 
-	// TODO DS04 - Add annotations
+	// TODO xDS04 - Add annotations
+	@Basic(optional = false)
+	@Column(name = "active", nullable = false)
 	private byte active;
 
 	public DurationAndStatus() {
